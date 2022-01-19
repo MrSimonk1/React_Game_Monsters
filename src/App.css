@@ -1,5 +1,60 @@
 .App {
-
+    font-family: monospace;
 }
+
+.d-flex {
+    display: flex;
+}
+
+.f-wrap {
+    flex-wrap: wrap;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.grow1 {
+    flex: 1;
+}
+
+.startDiv {
+    background-color: #e8e8e8;
+    height: 100vh;
+    padding-top: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+.startDiv h1 {
+    text-align: center;
+    margin-top: 0;
+    font-size: 40px;
+}
+
+.selectCharacter {
+    gap: 40px;
+    padding: 0 30px;
+}
+
+.selectCharacter > div {
+    width: 12.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+    border: 10px solid #e8e8e8;
+    cursor: pointer;
+}
+
+.selectCharacter > div:hover {
+    border-color: green;
+}
+
+.selectCharacter > div img {
+    width: 100%;
+}
+
 
 
