@@ -8,8 +8,12 @@ const MainPage = () => {
         <div className="mainPage">
             <ToolbarShopArena/>
             <div className="d-flex">
-                <MyCharacterInfo/>
-                <MyInventory/>
+                <div className="grow1">
+                    <MyCharacterInfo/>
+                </div>
+                <div className="grow1">
+                    <MyInventory/>
+                </div>
             </div>
         </div>
     );

@@ -6,16 +6,18 @@ import reportWebVitals from './reportWebVitals';
 import {configureStore} from "@reduxjs/toolkit";
 import myCharacterSlice from "./features/MyCharacter";
 import {Provider} from "react-redux";
+import inventorySlice from "./features/Inventory";
 
 const store = configureStore({
     reducer: {
-        character: myCharacterSlice
+        character: myCharacterSlice,
+        inventory: inventorySlice
     }
 })
 
 ReactDOM.render(
   <React.StrictMode>
-      
+
       <Provider store={store}>
           <App />
       </Provider>

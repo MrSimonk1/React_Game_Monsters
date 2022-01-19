@@ -7,7 +7,7 @@ const MyCharacterInfo = () => {
     const myCharacter = useSelector((state) => state.character.value)
 
     return (
-        <div className="grow1">
+        <div>
             <div className="d-flex a-center">
                 <img className="grow1" src={myCharacter.image} alt=""/>
 
