@@ -1,7 +1,8 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
-
+import {chooseMyCharacter} from "../features/MyCharacter";
+import {useNavigate} from "react-router-dom";
 
 const StartGamePage = () => {
 
@@ -98,11 +99,21 @@ const StartGamePage = () => {
 
     ]
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    function fnChoose(x) {
+        dispatch(chooseMyCharacter(x));
+        {navigate("/my-character")};
+    }
+
     return (
         <div className="startDiv">
             <h1>Select your character</h1>
             <div className="d-flex selectCharacter">
-                {characters.map((x, i) => <div className="grow1" key={i}>
+                {characters.map((x, i) => <div className="grow1"
+                                               key={i}
+                                               onClick={() => fnChoose(x)}>
                     <img src={x.image} alt=""/>
                     <h2>{x.race}</h2>
                     <div>Damage: {x.damage}</div>

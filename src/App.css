@@ -18,6 +18,18 @@
     flex: 1;
 }
 
+.a-center {
+    align-items: center;
+}
+
+.j-center {
+    justify-content: center;
+}
+
+.p-20 {
+    padding: 20px;
+}
+
 .startDiv {
     background-color: #e8e8e8;
     height: 100vh;
@@ -45,15 +57,50 @@
     align-items: center;
     padding-bottom: 10px;
     border: 10px solid #e8e8e8;
+    transition: 0.2s;
     cursor: pointer;
+}
+
+.selectCharacter > div div {
+    font-size: 17px;
 }
 
 .selectCharacter > div:hover {
     border-color: green;
+    transition: 0.2s;
 }
 
 .selectCharacter > div img {
     width: 100%;
+}
+
+.toolbar {
+    display: flex;
+    gap: 150px;
+    background-color: #464646;
+    color: white;
+    font-size: 30px;
+    padding: 20px;
+}
+
+.toolbar div {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.toolbar div:hover {
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+.mainPage {
+    background-color: #e8e8e8;
+    height: 100vh;
+}
+
+.myCharInfo {
+    font-size: 20px;
+    text-align: center;
 }
 
 
