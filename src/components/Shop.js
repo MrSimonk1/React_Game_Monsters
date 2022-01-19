@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {addToInventory} from "../features/Inventory";
+import {deductGold} from "../features/MyCharacter";
+import {useSelector} from "react-redux";
 
 const Shop = () => {
 
@@ -418,8 +420,9 @@ const Shop = () => {
     }
 
     const dispatch = useDispatch();
-
-    const [getSelectedCategory, setSelectedCategory] = useState("potions");
+    const myCharacter = useSelector((state) => state.character.value);
+    const inventory = useSelector((state) => state.inventory.value);
+    const [getSelectedCategory, setSelectedCategory] = useState("weapons");
 
     let weaponsBg = ""
     let weaponsFont = ""
@@ -460,7 +463,14 @@ const Shop = () => {
     }
 
     function buyItem(x) {
-        dispatch(addToInventory(x))
+        if (myCharacter.gold >= x.price && inventory.length < myCharacter.inventorySlots) {
+            dispatch(deductGold(x.price));
+            dispatch(addToInventory(x));
+        } else {
+            alert("not enough gold and/or not enogh space in inventory");
+        }
+
+
     }
 
     return (
