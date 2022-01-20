@@ -864,8 +864,9 @@ const Shop = () => {
             })
             weapon.effectsEffects = [...pushEffects];
         })
-
     const newTrader = {weapons: weapons, potions: trader.potions}
+
+    console.log(newTrader)
 
     const dispatch = useDispatch();
     const myCharacter = useSelector((state) => state.character.value);

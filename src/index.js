@@ -9,13 +9,15 @@ import {Provider} from "react-redux";
 import inventorySlice from "./features/Inventory";
 import modalSlice from "./features/Modal";
 import weaponSlice from "./features/Weapon";
+import monsterSlice from "./features/Monster";
 
 const store = configureStore({
     reducer: {
         character: myCharacterSlice,
         inventory: inventorySlice,
         modal: modalSlice,
-        weapon: weaponSlice
+        weapon: weaponSlice,
+        monster: monsterSlice
     }
 })
 

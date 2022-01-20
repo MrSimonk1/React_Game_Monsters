@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, current} from "@reduxjs/toolkit";
 
 export const inventorySlice = createSlice({
     name: "inventory",
@@ -11,11 +11,15 @@ export const inventorySlice = createSlice({
         },
         removeFromInventory: (state, action) => {
             state.value.splice(action.payload, 1);
+        },
+        removeOnlyPotion: (state, action) => {
+            const index = current(state.value).indexOf(action.payload);
+            state.value.splice(index, 1);
         }
     }
 })
 
 
-export const {addToInventory, removeFromInventory} = inventorySlice.actions;
+export const {addToInventory, removeFromInventory, removeOnlyPotion} = inventorySlice.actions;
 
 export default inventorySlice.reducer;

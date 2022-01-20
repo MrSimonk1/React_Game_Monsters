@@ -5,6 +5,8 @@ import {removeFromInventory} from "../features/Inventory";
 import {addToInventory} from "../features/Inventory";
 import {addGold} from "../features/MyCharacter";
 import {chooseWeapon} from "../features/Weapon";
+import {addStatsFromWeapon} from "../features/MyCharacter";
+import {removeStatsFromWeapon} from "../features/MyCharacter";
 
 
 const MyInventory = () => {
@@ -24,9 +26,11 @@ const MyInventory = () => {
         if (category === "weapon") {
             if (Object.keys(equippedWeapon).length > 0) {
                 dispatch(addToInventory(equippedWeapon))
+                dispatch(removeStatsFromWeapon(equippedWeapon))
             }
             dispatch(chooseWeapon(x));
             dispatch(removeFromInventory(i));
+            dispatch(addStatsFromWeapon(x));
         }
         if (category === "potion") {
             dispatch(removeFromInventory(i));
@@ -38,11 +42,14 @@ const MyInventory = () => {
 
     function showBtn(x, i, category) {
         if (windowOpened.includes("my-character")) {
-            return (
-                <div>
-                    <button onClick={() => equip(x, i, category)}>Equip</button>
-                </div>
-            )
+            console.log(Object.keys(x))
+            if (Object.keys(x)[1] === "maxDamage") {
+                return (
+                    <div>
+                        <button onClick={() => equip(x, i, category)}>Equip</button>
+                    </div>
+                )
+            }
         } else {
             return (
                 <div>

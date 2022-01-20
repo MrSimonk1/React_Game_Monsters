@@ -49,7 +49,7 @@ const StartGamePage = () => {
             stamina: 7,
             strength: 1,
             inventorySlots: 4,
-            gold: 1000
+            gold: 1000000000
         },
 
         {
@@ -120,7 +120,7 @@ const StartGamePage = () => {
                     <div>Health: {x.health}</div>
                     <div>Energy: {x.energy}</div>
                     <div>Stamina: {x.stamina}</div>
-                    <div>Strength: {x.stamina}</div>
+                    <div>Strength: {x.strength}</div>
                     <div>Inventory slots: {x.inventorySlots}</div>
                     <div>Gold: {x.gold}</div>
                 </div>)}

@@ -16,14 +16,12 @@ const MyCharacterInfo = () => {
                     <div>Health: {myCharacter.health}</div>
                     <div>Energy: {myCharacter.energy}</div>
                     <div>Stamina: {myCharacter.stamina}</div>
-                    <div>Strength: {myCharacter.stamina}</div>
+                    <div>Strength: {myCharacter.strength}</div>
                     <div>Inventory slots: {myCharacter.inventorySlots}</div>
                     <div>Gold: {myCharacter.gold}</div>
                 </div>
             </div>
-
             <EquippedWeapon/>
-
         </div>
     );
 };
