@@ -20,32 +20,38 @@ const MyInventory = () => {
         dispatch(addGold(x.price/2));
     }
 
-    function equip(x, i) {
-        if (Object.keys(equippedWeapon).length > 0) {
-            dispatch(addToInventory(equippedWeapon))
+    function equip(x, i, category) {
+        if (category === "weapon") {
+            if (Object.keys(equippedWeapon).length > 0) {
+                dispatch(addToInventory(equippedWeapon))
+            }
+            dispatch(chooseWeapon(x));
+            dispatch(removeFromInventory(i));
         }
-        dispatch(chooseWeapon(x));
-        dispatch(removeFromInventory(i));
+        if (category === "potion") {
+            dispatch(removeFromInventory(i));
+        }
+
     }
 
     let windowOpened = window.location.href
 
-    function showBtn(x, i) {
+    function showBtn(x, i, category) {
         if (windowOpened.includes("my-character")) {
             return (
                 <div>
-                    <button onClick={() => equip(x, i)}>Equip</button>
+                    <button onClick={() => equip(x, i, category)}>Equip</button>
                 </div>
-
             )
         } else {
             return (
                 <div>
-                    <button onClick={() => sell(i)}>Sell</button>
+                    <button onClick={() => sell(x, i)}>Sell</button>
                 </div>
             )
         }
     }
+
 
     return (
         <div className="d-flex column">
@@ -57,15 +63,25 @@ const MyInventory = () => {
                 <h2>Gold: {myCharacter.gold}</h2>
             </div>}
             <div className="inventoryDiv d-flex f-wrap">
-                {inventory.length > 0 && inventory.map((x, i) => <div key={i} className="d-flex">
+                {inventory.length > 0 && inventory.map((x, i) =>
+                    <div key={i} className="d-flex">
                     <img src={x.image} alt=""/>
-                    <div>
-                        <div>Max dmg: {x.maxDamage}</div>
-                        <div>Selling price: {x.price/2}</div>
-                        <div>Energy per hit: {x.energyPerHit}</div>
-                        <div>Effects: {x.effects}</div>
-                    </div>
-                    {showBtn(x, i)}
+                        {Object.keys(x)[1] === "maxDamage" ?
+                        <div>
+                            <div>Max dmg: {x.maxDamage}</div>
+                            <div>Selling price: {x.price/2}</div>
+                            <div>Energy per hit: {x.energyPerHit}</div>
+                            {x.effectsEffects.length === 0 && <div>Effects: none</div>}
+                            {x.effectsEffects.length > 0 && <div>
+                                <div>Effects:</div>
+                                {x.effectsEffects.map((eff, index) => <div key={index}>{eff.title}</div>)}
+                            </div>}
+                        </div> :
+                        <div>
+                            <div>Title: {x.title}</div>
+                            <div>Selling price: {x.price/2}</div>
+                        </div>}
+                        {Object.keys(x)[1] === "maxDamage" ? showBtn(x, i, "weapon") : showBtn(x, i, "potion")}
                 </div>)}
             </div>
 

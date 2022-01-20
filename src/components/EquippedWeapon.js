@@ -13,7 +13,11 @@ const EquippedWeapon = () => {
                 <div>
                     <div>Max dmg: {weapon.maxDamage}</div>
                     <div>Energy per hit: {weapon.energyPerHit}</div>
-                    <div>Effects: {weapon.effects}</div>
+                    {weapon.effectsEffects.length === 0 && <div>Effects: none</div>}
+                    {weapon.effectsEffects.length > 0 && <div>
+                        <div>Effects:</div>
+                        {weapon.effectsEffects.map((eff, index) => <div key={index}>{eff.title}</div>)}
+                    </div>}
                 </div>
 
             </div>}
