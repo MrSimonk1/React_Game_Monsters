@@ -32,16 +32,18 @@ export const myCharacterSlice = createSlice({
             if (allEffects.length > 0) {
                 allEffects.map(x => {
                     let key = Object.keys(x.effect);
-                    console.log(x.effect, key, x.effect[key], myCharacter[key]) //obj, key, reiksme.
                     myCharacter[key] -= x.effect[key];
                 })
             }
             state.value = {...myCharacter}
+        },
+        clearCharacter: (state, action) => {
+            state.value = null;
         }
     }
 })
 
 export const {chooseMyCharacter, deductGold, addGold,
-    addStatsFromWeapon, removeStatsFromWeapon, addPotionStats} = myCharacterSlice.actions;
+    addStatsFromWeapon, removeStatsFromWeapon, clearCharacter} = myCharacterSlice.actions;
 
 export default myCharacterSlice.reducer;

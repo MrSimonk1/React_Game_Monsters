@@ -10,6 +10,7 @@ import inventorySlice from "./features/Inventory";
 import modalSlice from "./features/Modal";
 import weaponSlice from "./features/Weapon";
 import monsterSlice from "./features/Monster";
+import dropItemsSlice from "./features/DropItems";
 
 const store = configureStore({
     reducer: {
@@ -17,7 +18,8 @@ const store = configureStore({
         inventory: inventorySlice,
         modal: modalSlice,
         weapon: weaponSlice,
-        monster: monsterSlice
+        monster: monsterSlice,
+        drop: dropItemsSlice
     }
 })
 

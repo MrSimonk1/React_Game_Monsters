@@ -9,7 +9,9 @@ const EquippedWeapon = () => {
         <div className="p-20">
             <h2>Equipped weapon:</h2>
             {Object.keys(weapon).length === 0 ? <h2>Nothing is equipped</h2> : <div className="d-flex gap-10">
-                <img src={weapon.image} alt=""/>
+                <div>
+                    <img src={weapon.image} alt=""/>
+                </div>
                 <div>
                     <div>Max dmg: {weapon.maxDamage}</div>
                     <div>Energy per hit: {weapon.energyPerHit}</div>

@@ -8,11 +8,14 @@ export const weaponSlice = createSlice({
     reducers: {
         chooseWeapon: (state, action) => {
             state.value = action.payload;
+        },
+        clearWeapon: (state, action) => {
+            state.value = {};
         }
     }
 })
 
-export const {chooseWeapon} = weaponSlice.actions;
+export const {chooseWeapon, clearWeapon} = weaponSlice.actions;
 
 export default weaponSlice.reducer;
 

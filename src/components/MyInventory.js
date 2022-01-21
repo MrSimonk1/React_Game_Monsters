@@ -22,27 +22,44 @@ const MyInventory = () => {
         dispatch(addGold(x.price/2));
     }
 
-    function equip(x, i, category) {
-        if (category === "weapon") {
-            if (Object.keys(equippedWeapon).length > 0) {
-                dispatch(addToInventory(equippedWeapon))
-                dispatch(removeStatsFromWeapon(equippedWeapon))
-            }
-            dispatch(chooseWeapon(x));
-            dispatch(removeFromInventory(i));
-            dispatch(addStatsFromWeapon(x));
-        }
-        if (category === "potion") {
-            dispatch(removeFromInventory(i));
+    function equip(x, i) {
+
+        let removingItemSlots = 0;
+        if (Object.keys(equippedWeapon).length > 0) {
+            equippedWeapon.effectsEffects.map(y => {
+                if (y.title.includes("Inventory")) {
+                    removingItemSlots = y.effect.inventorySlots;
+                }
+            })
         }
 
+        let addingItemSlots = 0;
+        x.effectsEffects.map(z => {
+            if (z.title.includes("Inventory")) {
+                addingItemSlots = z.effect.inventorySlots;
+            }
+        })
+
+        if (Object.keys(equippedWeapon).length > 0) {
+            if ((myCharacter.inventorySlots - removingItemSlots + addingItemSlots) >= inventory.length) {
+                dispatch(addToInventory(equippedWeapon))
+                dispatch(removeStatsFromWeapon(equippedWeapon))
+            } else {
+                alert("you can't change this weapon, because CURRENTLY EQUIPPED weapon is adding inventory slots and the WEAPON YOU WANT TO EQUIP does not provide enough inventory slots. " +
+                    "Either equip another weapon or sell some inventory Items to free up space" +
+                    `Max inventory slots without weapon: ${myCharacter.inventorySlots - removingItemSlots}`)
+                return
+            }
+        }
+        dispatch(chooseWeapon(x));
+        dispatch(removeFromInventory(i));
+        dispatch(addStatsFromWeapon(x));
     }
 
     let windowOpened = window.location.href
 
     function showBtn(x, i, category) {
         if (windowOpened.includes("my-character")) {
-            console.log(Object.keys(x))
             if (Object.keys(x)[1] === "maxDamage") {
                 return (
                     <div>
@@ -50,7 +67,8 @@ const MyInventory = () => {
                     </div>
                 )
             }
-        } else {
+        }
+        if (windowOpened.includes("shop")) {
             return (
                 <div>
                     <button onClick={() => sell(x, i)}>Sell</button>
@@ -85,10 +103,10 @@ const MyInventory = () => {
                             </div>}
                         </div> :
                         <div>
-                            <div>Title: {x.title}</div>
+                            <div>{x.title}</div>
                             <div>Selling price: {x.price/2}</div>
                         </div>}
-                        {Object.keys(x)[1] === "maxDamage" ? showBtn(x, i, "weapon") : showBtn(x, i, "potion")}
+                        {Object.keys(x)[1] === "maxDamage" ? showBtn(x, i) : showBtn(x, i)}
                 </div>)}
             </div>
 

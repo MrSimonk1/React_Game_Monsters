@@ -255,17 +255,32 @@
 }
 
 .droppedItems {
-    height: 500px;
+    margin-top: 30px;
+    min-height: 300px;
     padding: 20px;
     width: 90%;
-    background-color: #adadad;
+    background-color: #d3d3d3;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 12px 1px #000000;
 }
 
 .droppedItems > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
 
+.droppedItems > div button {
+    cursor: pointer;
+    background-color: #468139;
+    border: none;
+    padding: 5px 5px;
+    color: white;
+    font-family: monospace;
+    border-radius: 5px;
 }
 
 

@@ -866,8 +866,6 @@ const Shop = () => {
         })
     const newTrader = {weapons: weapons, potions: trader.potions}
 
-    console.log(newTrader)
-
     const dispatch = useDispatch();
     const myCharacter = useSelector((state) => state.character.value);
     const inventory = useSelector((state) => state.inventory.value);

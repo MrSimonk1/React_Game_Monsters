@@ -15,11 +15,14 @@ export const inventorySlice = createSlice({
         removeOnlyPotion: (state, action) => {
             const index = current(state.value).indexOf(action.payload);
             state.value.splice(index, 1);
+        },
+        clearInventory: (state, action) => {
+            state.value = [];
         }
     }
 })
 
 
-export const {addToInventory, removeFromInventory, removeOnlyPotion} = inventorySlice.actions;
+export const {addToInventory, removeFromInventory, removeOnlyPotion, clearInventory} = inventorySlice.actions;
 
 export default inventorySlice.reducer;
