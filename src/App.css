@@ -283,4 +283,14 @@
     border-radius: 5px;
 }
 
-
+.unequipBtn {
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background-color: #9d0a0a;
+    color: #e8e8e8;
+    font-size: 15px;
+    padding: 7px 14px;
+    cursor: pointer;
+    margin-left: 10px;
+}

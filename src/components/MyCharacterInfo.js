@@ -13,7 +13,7 @@ const MyCharacterInfo = () => {
 
                 <div className="myCharInfo grow1">
                     <div>Damage: {myCharacter.damage}</div>
-                    <div>Health: {myCharacter.health}</div>
+                    <div>Max Health: {myCharacter.health}</div>
                     <div>Energy: {myCharacter.energy}</div>
                     <div>Stamina: {myCharacter.stamina}</div>
                     <div>Strength: {myCharacter.strength}</div>
