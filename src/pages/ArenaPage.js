@@ -311,7 +311,7 @@ const ArenaPage = () => {
             health: 5000,
             maxItemsDrop: 10
         }
-    ]
+    ];
 
     const myChar = useSelector((state) => state.character.value);
     const monster = useSelector((state) => state.monster.value);
@@ -321,12 +321,14 @@ const ArenaPage = () => {
 
     const dispatch = useDispatch();
 
+    const [getLost, setLost] = useState(false);
     const [getMyHealth, setMyHealth] = useState(myChar.health);
     const [getMyEnergy, setMyEnergy] = useState(myChar.energy);
     const [getIsFighting, setIsFighting] = useState(false);
     const [getShowDropped, setShowDropped] = useState(false);
     const [getMonsterHealth, setMonsterHealth] = useState(0);
     const [getInitialMonsterHealth, setInitialMonsterHealth] = useState(0);
+    const [getMessage, setMessage] = useState("");
 
     function showHealth() {
 
@@ -352,7 +354,9 @@ const ArenaPage = () => {
 
                     </div>
 
-                    {getMyHealth} / {myChar.health}
+                    <div className="healthAndEnergyInfo">
+                        {getMyHealth} / {myChar.health}
+                    </div>
 
                 </div>
             </div>
@@ -382,7 +386,9 @@ const ArenaPage = () => {
                 <div style={stylingMain}>
                     <div style={stylingLittle}>
                     </div>
-                    {getMyEnergy} / {myChar.energy}
+                    <div className="healthAndEnergyInfo">
+                        {getMyEnergy} / {myChar.energy}
+                    </div>
                 </div>
             </div>
         )
@@ -411,8 +417,9 @@ const ArenaPage = () => {
                         <div style={stylingLittle}>
 
                         </div>
-
-                        {getMonsterHealth} / {getInitialMonsterHealth}
+                        <div className="healthAndEnergyInfo">
+                            {getMonsterHealth} / {getInitialMonsterHealth}
+                        </div>
                     </div>
                 </div>
             )
@@ -739,7 +746,8 @@ const ArenaPage = () => {
             dispatch(removeDroppedItem(index))
             dispatch(addToInventory(item))
         } else {
-            alert("You don't have enough room to collect this item")
+            setMessage("Not enough room in Inventory");
+            timeout();
         }
     }
 
@@ -792,13 +800,16 @@ const ArenaPage = () => {
 
                 <div className="d-flex column j-center a-center">
                     <div>{potion.title}</div>
+                    {!getShowDropped &&
                     <button className="drinkBtn" onClick={() => drinkPotion(potion)}>Drink</button>
+                    }
                 </div>
             </div>)
         )
     }
 
     function generateMonster() {
+        setMessage("");
         const randomNum = Math.floor(Math.random()*monsters.length);
         dispatch(createMonster(monsters[randomNum]));
         setMonsterHealth(monsters[randomNum].health);
@@ -834,7 +845,22 @@ const ArenaPage = () => {
         dispatch(clearInventory());
     }
 
+    function eraseMessage() {
+        setMessage("");
+    }
+
+    const timeout = () => {
+        setTimeout(eraseMessage, 2000);
+    }
+
+    function goToStartPage() {
+        {navigate("/")}
+    }
+
     function attack() {
+        setMessage("");
+        clearTimeout(timeout)
+
         const randomDmgToPlayer = Math.floor(Math.random()*monster.maxDamage);
         const reducePlayerEnergy = weaponEquipped.energyPerHit;
         const energyAdded = myChar.stamina;
@@ -845,7 +871,8 @@ const ArenaPage = () => {
 
         if (numberForCriticalHit <= myChar.strength) {
             playerDoesDamage = playerDoesDamage * 3;
-            alert("Made a critical hit. Damage x3");
+            setMessage(`Made a critical hit. Damage x3. Total damage: ${playerDoesDamage + randomWeaponDmg}`);
+            timeout();
         }
 
         if (getMyEnergy >= reducePlayerEnergy && getMyHealth > randomDmgToPlayer) {
@@ -860,21 +887,27 @@ const ArenaPage = () => {
         if (getMyEnergy < reducePlayerEnergy && getMyHealth > randomDmgToPlayer) {
             setMyHealth(getMyHealth-randomDmgToPlayer); // damage to player
             setMyEnergy(getMyEnergy + energyAdded); // energy just added
-            alert("You don't have enough energy to attack, but animal does and he attacks you")
+            setMessage("You did NOT have enough energy to attack, but animal did and he attacked you");
+            timeout();
         }
         if (getMyEnergy < reducePlayerEnergy && getMyHealth < randomDmgToPlayer) {
             setMyHealth(0);
             setMonsterHealth(getMonsterHealth - playerDoesDamage - randomWeaponDmg) // attacking monster
-            alert("You lost, you didn't have enough energy to attack");
-            {navigate("/")};
+            setMessage("You lost, you didn't have enough energy to attack");
+            setLost(true);
+            setTimeout(goToStartPage, 3000);
+            setTimeout(eraseCharacter, 3000);
             eraseCharacter();
+            return;
         }
         if (getMyHealth <= randomDmgToPlayer && playerDoesDamage + randomWeaponDmg < getMonsterHealth) {
             setMyHealth(0);
             setMonsterHealth(getMonsterHealth - playerDoesDamage - randomWeaponDmg) // attacking monster
-            alert("You lost");
-            {navigate("/")};
-            eraseCharacter();
+            setMessage("You lost");
+            setLost(true);
+            setTimeout(goToStartPage, 3000);
+            setTimeout(eraseCharacter, 3000);
+            return;
         }
         if (playerDoesDamage + randomWeaponDmg >= getMonsterHealth && getMyHealth > randomDmgToPlayer) {
             setMonsterHealth(0);
@@ -885,7 +918,8 @@ const ArenaPage = () => {
                 setMyEnergy(myChar.energy)
             }
             setMonsterHealth(getMonsterHealth - playerDoesDamage - randomWeaponDmg) // attacking monster
-            alert("you won");
+            setMessage("You won")
+            timeout();
             changeIsFighting(false);
             const randomNum = Math.round(Math.random()*monster.maxItemsDrop);
             changeShowDropped(true);
@@ -894,22 +928,25 @@ const ArenaPage = () => {
     }
 
 
+
+
     return (
         <div className="arena d-flex">
             <div className="grow1">
                 <MyCharacterInfo/>
                 {showHealth()}
                 {showEnergy()}
-
                 <div className="d-flex potionsInArena">
                     {showPotions()}
-                </div>
-
+                </div>}
             </div>
             <div className="grow1 d-flex j-center">
+                <div className="messageDiv">
+                    {getMessage}
+                </div>
                 {!getIsFighting && <button className="fightBtn" onClick={generateMonster}>FIND ENEMY</button>}
-                {getIsFighting && <button className="fightBtn" onClick={attack}>ATTACK</button>}
-                {getShowDropped && <button className="fightBtn" onClick={() => {navigate("/shop")}}>LEAVE ARENA</button>}
+                {!getLost ? getIsFighting && <button className="fightBtn" onClick={attack}>ATTACK</button> : null}
+                {getShowDropped && <button className="fightBtn br-left-none" onClick={() => {navigate("/shop")}}>LEAVE ARENA</button>}
             </div>
             <div className="grow1 mt-160 mr-20">
                 {getIsFighting && displayMonster()}
