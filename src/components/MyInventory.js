@@ -77,7 +77,6 @@ const MyInventory = () => {
         }
     }
 
-
     return (
         <div className="d-flex column">
             {inventory.length === 0 ? <div className="d-flex space-evenly">

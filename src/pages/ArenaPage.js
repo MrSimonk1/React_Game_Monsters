@@ -927,9 +927,6 @@ const ArenaPage = () => {
         }
     }
 
-
-
-
     return (
         <div className="arena d-flex">
             <div className="grow1">
