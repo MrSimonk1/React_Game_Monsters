@@ -5,6 +5,8 @@ import ShopPage from "./pages/ShopPage";
 import ArenaPage from "./pages/ArenaPage";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
+//need to fix timeouts of error messages when fighting;
+
 function App() {
   return (
     <div className="App">

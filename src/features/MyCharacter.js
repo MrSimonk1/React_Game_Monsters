@@ -36,14 +36,11 @@ export const myCharacterSlice = createSlice({
                 })
             }
             state.value = {...myCharacter}
-        },
-        clearCharacter: (state, action) => {
-            state.value = null;
         }
     }
 })
 
 export const {chooseMyCharacter, deductGold, addGold,
-    addStatsFromWeapon, removeStatsFromWeapon, clearCharacter} = myCharacterSlice.actions;
+    addStatsFromWeapon, removeStatsFromWeapon} = myCharacterSlice.actions;
 
 export default myCharacterSlice.reducer;

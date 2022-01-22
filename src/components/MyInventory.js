@@ -19,7 +19,11 @@ const MyInventory = () => {
 
     function sell(x, i) {
         dispatch(removeFromInventory(i));
-        dispatch(addGold(x.price/2));
+        if (Object.keys(x).length === 2) {
+            dispatch(addGold(x.price));
+        } else {
+            dispatch(addGold(x.price/2));
+        }
     }
 
     function equip(x, i) {
@@ -103,7 +107,7 @@ const MyInventory = () => {
                         </div> :
                         <div>
                             <div>{x.title}</div>
-                            <div>Selling price: {x.price/2}</div>
+                            {Object.keys(x).length === 2 ? <div>Selling price: {x.price}</div> : <div>Selling price: {x.price/2}</div>}
                         </div>}
                         {Object.keys(x)[1] === "maxDamage" ? showBtn(x, i) : showBtn(x, i)}
                 </div>)}

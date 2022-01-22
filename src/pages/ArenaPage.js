@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import MyCharacterInfo from "../components/MyCharacterInfo";
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
@@ -434,7 +434,6 @@ const ArenaPage = () => {
     }
 
     function generateDrop(num) {
-        console.log(num)
         const dropItems = [
             {
                 image: "https://wow.gamepressure.com/gfx/icons/INV_Chest_Leather_09.gif",
@@ -737,7 +736,6 @@ const ArenaPage = () => {
             items.push(dropItems[randomNum]);
         }
 
-        console.log(items);
         dispatch(addItems(items))
     }
 
