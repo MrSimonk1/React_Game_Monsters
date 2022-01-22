@@ -18,7 +18,7 @@ const ToolbarShopArena = () => {
 
     return (
         <div className="toolbar">
-            <div onClick={() => {navigate("/my-character")}}>Main</div>
+            <div onClick={() => {navigate("/my-character")}}>My Character</div>
             <div onClick={() => navigateToArena()}>Arena</div>
         </div>
     );

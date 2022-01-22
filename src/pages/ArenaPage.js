@@ -866,11 +866,12 @@ const ArenaPage = () => {
         const energyAdded = myChar.stamina;
         let playerDoesDamage = myChar.damage;
         const additionalWeaponDmg = weaponEquipped.maxDamage;
-        const randomWeaponDmg = Math.floor(Math.random()*additionalWeaponDmg);
+        let randomWeaponDmg = Math.floor(Math.random()*additionalWeaponDmg);
         const numberForCriticalHit = Math.ceil(Math.random()*100)
 
         if (numberForCriticalHit <= myChar.strength) {
             playerDoesDamage = playerDoesDamage * 3;
+            randomWeaponDmg = randomWeaponDmg * 3;
             setMessage(`Made a critical hit. Damage x3. Total damage: ${playerDoesDamage + randomWeaponDmg}`);
             timeout();
         }

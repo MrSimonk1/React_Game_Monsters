@@ -7,7 +7,6 @@ import {configureStore} from "@reduxjs/toolkit";
 import myCharacterSlice from "./features/MyCharacter";
 import {Provider} from "react-redux";
 import inventorySlice from "./features/Inventory";
-import modalSlice from "./features/Modal";
 import weaponSlice from "./features/Weapon";
 import monsterSlice from "./features/Monster";
 import dropItemsSlice from "./features/DropItems";
@@ -16,7 +15,6 @@ const store = configureStore({
     reducer: {
         character: myCharacterSlice,
         inventory: inventorySlice,
-        modal: modalSlice,
         weapon: weaponSlice,
         monster: monsterSlice,
         drop: dropItemsSlice
