@@ -33,7 +33,7 @@ const EquippedWeapon = () => {
     return (
         <div className="p-20">
             <h2>Equipped weapon:</h2>
-            {Object.keys(weapon).length === 0 ? <h2>Nothing is equipped</h2> : <div className="d-flex gap-10">
+            {Object.keys(weapon).length === 0 ? <div className="emptySlot">Weapon is not equipped</div> : <div className="d-flex gap-10">
                 <div>
                     <img src={weapon.image} alt=""/>
                 </div>

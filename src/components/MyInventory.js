@@ -17,6 +17,7 @@ const MyInventory = () => {
     const myCharacter = useSelector((state) => state.character.value);
     const equippedWeapon = useSelector((state) => state.weapon.value);
 
+
     function sell(x, i) {
         dispatch(removeFromInventory(i));
         if (Object.keys(x).length === 2) {
@@ -111,6 +112,7 @@ const MyInventory = () => {
                         </div>}
                         {Object.keys(x)[1] === "maxDamage" ? showBtn(x, i) : showBtn(x, i)}
                 </div>)}
+                {[...Array(myCharacter.inventorySlots - inventory.length)].map((x, index) => <div className="emptySlot" key={index}>Empty slot</div>)}
             </div>
 
         </div>
